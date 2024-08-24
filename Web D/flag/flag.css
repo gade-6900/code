@@ -1,0 +1,29 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+
+}
+.stripe {
+ width: 450px;
+ height: 100px;   
+}
+.saffron {
+    background-color: #faa30c;
+
+}
+.white {
+text-align: center;
+background-color: #fff;
+
+}
+.white img {
+    height: 100%;
+
+}
+.green {
+    background-color: #279104;
+    
+}
