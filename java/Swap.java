@@ -13,14 +13,9 @@ public class Swap {
         a = b;
         b = c;
 
+        System.out.println("Swapping done.....");
         System.out.println("value of A is:" + a);
         System.out.println("value of B is:" + b);
-
-
-
-
-
-
     }
     
 }
