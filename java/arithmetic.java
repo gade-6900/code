@@ -20,6 +20,11 @@
 
             System.out.println(c/d);
 
+            int g = 8;
+            int h = 5;
+
+            System.out.println(g%h);
+
 
             double x = 5;
             double y = 2;
