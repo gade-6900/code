@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>personal portfolio website</title>
+    <link rel="stylesheet" href="portfolio.css">
+    <script src="https://kit.fontawesome.com/45cbdc05da.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="header">
+       <div class="container">
+        <nav>
+         <img src="images/logo.png" class ="logo">   
+         <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">about</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Contact</a></li>
+         </ul>
+        </nav>
+        <div class="hearser-text">
+            <p>Java Full stack Developer</p>
+            <h1>Hi, I'm <span>Shubham Gade</span><br>from india</h1>
+        </div>
+       </div> 
+    </div>
+    <!-------------about----------->
+
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="about-col-1">
+                    <img src="images/img1.jpg">
+                </div>
+                <div class="about-col-2">
+                    <h1 class="sub-title">About Me</h1>
+                    <p>My name is shubhma gade i am from VDF school of engineeringn Latur maharastra Now i studing  in CSE final year .  i enjoy all activities in the college life  </p>
+                    <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="Opentab(event,'Skills')">Skills</p>
+                        <p class="tab-links" onclick="Opentab(event,'Experience')">Experience</p>
+                        <p class="tab-links" onclick="Opentab(event,'Education')">Education</p>
+                    </div>
+                    <div class="tab-contents active-tab" id="Skills">
+                        <ul>
+                            <li><span>Java </span><br>Bootstrap and Backend data store </li>
+                            <li><span>HTML/CSS/JS</span><br>Web page create and desing the websites  </li>
+                            <li><span>Javascript</span><br>Design the web pages and responsive data </li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="Experience">
+                        <ul>
+                            <li><span>2024 - current</span><br>Student at vdf latur </li>
+                            <li><span>2025 - fresher</span><br>Open for jab</li>
+                            <li><span>2024 - 2024</span><br>internship for ekart eCommerce</li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="Education">
+                        <ul>
+                            <li><span>2021 - 2022</span><br> first year  </li>
+                            <li><span>2022 - 2023</span><br>second year</li>
+                            <li><span>2023 - 2024</span><br>third year</li> 
+                            <li><span>2024 - 2025</span><br>Final year</li> 
+                               
+                        
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---------services---------------- ---->
+    <div id="services">
+        <div class="container">
+            <h1 class="sub-title">MY Services</h1>
+            <div class="services-list"></div>
+            <div>
+                <i class="fa-solid fa-code"></i>
+                <h2>Web Desinging</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel esse sit quibusdam aliquid nemo tempora officiis voluptate dolorem</p>
+                <a href="#">learn more</a>
+            </div>
+            <div>
+                <i class="fa-thin fa-pen"></i>
+                <h2>UI/UX</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel esse sit quibusdam aliquid nemo tempora officiis voluptate doloremq.</p>
+                <a href="#">learn more</a>
+            </div>
+            <div>
+                <i class="fa-brands fa-app-store"></i>
+                <h2>App Development</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel esse sit quibusdam aliquid nemo tempora officiis voluptate dolore.</p>
+                <a href="#">learn more</a>
+            </div>
+        </div>
+    </div>
+    <script>
+         var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+
+    function Opentab(event, tabname) {
+        // Remove active class from all tab links
+        // console.log();
+        
+        for (var tablink of tablinks) {
+            tablink.classList.remove("active-link");
+        }
+    
+
+        // Remove active class from all tab contents
+        for (var tabcontent of tabcontents) {
+            tabcontent.classList.remove("active-tab");
+        }
+
+        // Add active class to the clicked tab
+        event.currentTarget.classList.add("active-link");
+
+        // Show the relevant tab content
+        document.getElementById(tabname).classList.add("active-tab");
+    }
+            
+         
+    </script>
+</body>
+</html>
