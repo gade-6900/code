@@ -12,15 +12,17 @@
        <div class="container">
         <nav>
          <img src="images/logo3.png" class ="logo">   
-         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">about</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Portfolio</a></li>
-            <li><a href="#">Contact</a></li>
+         <ul id="sidemenu">
+            <li><a href="#header">Home</a></li>
+            <li><a href="#about">about</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <i class="fas fa-rectangle-xmark" onclick="closemenu()"></i>
          </ul>
+         <i class="fas fa-bars" onclick="openmenu()"></i>
         </nav>
-        <div class="hearser-text">
+        <div class="header-text">
             <p>Java Full stack Developer</p>
             <h1>Hi, I'm <span>Shubham Gade</span><br>From India</h1>
         </div>
@@ -37,7 +39,7 @@
                 <div class="about-col-2">
                     <h1 class="sub-title">About Me</h1>
                     <p>My name is shubhma gade i am from VDF school of engineeringn Latur maharastra Now i studing  in CSE final year .  i enjoy all activities in the college life  </p>
-                    <div class="tab-titles">
+                    <div class="tab-title">
                         <p class="tab-links active-link" onclick="Opentab(event,'Skills')">Skills</p>
                         <p class="tab-links" onclick="Opentab(event,'Experience')">Experience</p>
                         <p class="tab-links" onclick="Opentab(event,'Education')">Education</p>
@@ -80,19 +82,27 @@
                 <div>
                     <i class="fa-solid fa-code"></i>
                 <h2>Web Desinging</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel esse sit quibusdam aliquid nemo tempora officiis voluptate dolorem</p>
+                <p> Creating a Strong Online Presence,
+                    Building Brand Identity
+                </p>
                 <a href="#">Learn more</a>
             </div>
             <div>
                 <i class="fa-solid fa-crop-simple"></i>
                 <h2>UI/UX</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel esse sit quibusdam aliquid nemo tempora officiis voluptate doloremq.</p>
+                <p>Improving User Satisfacti ,
+                    Enhancing Usability,
+                    Driving Conversions
+                </p>
                 <a href="#">Learn more</a>
             </div>
             <div>
                 <i class="fa-brands fa-app-store"></i>
                 <h2>App Development</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel esse sit quibusdam aliquid nemo tempora officiis voluptate dolore.</p>
+                <p> Personalized User Experience,
+                    Offline Access,
+                    In-App Messaging and Chat
+                </p>
                 <a href="#">Learn more</a>
             </div>
         </div>
@@ -147,24 +157,29 @@
                 <p><i class="fa-solid fa-paper-plane"></i> shubhamgade6900@gmail.com</p>
                 <p><i class="fa-solid fa-phone"></i> +91 99XXXX1438</p>
                 <div class="social-icon ">
-                   <a href="https://linkedin.com"<i class="fa-brands fa-linkedin"></i></a>
-                   <a href="https://github.com/gade-6900/code"<i class="fa-brands fa-github"></i></a>
-                   <a href="https://x.com/home?lang=en"<i class="fa-brands fa-x-twitter"></i></a>
-                   <a href="https://www.instagram.com/gadepatil_6900/"<i class="fa-brands fa-instagram"></i></a>
+                   <a href=""<i class="fa-brands fa-linkedin"></i></a>
+                   <a href=""<i class="fa-brands fa-github"></i></a>
+                   <a href=""<i class="fa-brands fa-x-twitter"></i></a>
+                   <a href=""<i class="fa-brands fa-instagram"></i></a>
 
 
-                </div>  
+                </div> 
+                <a href="images/Gade resume.pdf" download class= "btn btn2 ">Download CV</a> 
             </div>
             <div class="contact-right">
-                <form>
-                    <input type="text" name="name" placeholder="your name" required>
-                    <input type="email" name="email" placeholder="your email" required>
-                    <textarea name="message" row="8" placeholder="your message"></textarea>
-                    <button type="submit" >submit</button>
+                <form name="submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder="your name" required>
+                    <input type="email" name="Email" placeholder="your email" required>
+                    <textarea name="Message" row="6" placeholder="your message"></textarea>
+                    <button type="submit" class="btn btn2" >submit</button>
                 </form>
+                <span id="msg"></span>
             </div>
 
         </div>
+    </div>
+    <div class="copyright">
+        <p>Copyright @ Shubham. made with <i class="fa-brands fa-apple"></i> me by easy </p>
     </div>
 </div>
 
@@ -198,5 +213,33 @@
             
          
     </script>
+    <script>
+       var sidemenu = document.getElementById("sidemenu");
+     function openmenu(){
+        sidemenu.style.right = "0";
+     }
+     function closemenu(){
+        sidemenu.style.right = "-200px";
+     }
+
+    </script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyqzZFDwetdQt1v91BqhSmYlEyrpqJj0bwmCSGAbwQtYtzfW5kuPxtEzwcjDL0iSud7/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg = document.getElementById("msg")
+      
+        form.addEventListener('submit', e => {
+    e.preventDefault();
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+            msg.innerHTML = "Message sent successfully";
+            setTimeout(function() {
+                msg.innerHTML = "";
+            }, 5000);
+            form.reset();
+        })
+        .catch(error => console.error('Error!', error.message));
+});
+      </script>
 </body>
 </html>
