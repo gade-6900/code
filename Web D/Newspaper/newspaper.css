@@ -1,0 +1,109 @@
+*{
+    margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+}
+.main{
+    width: 80%;
+    height: auto;
+    margin: auto;
+}
+.head{
+    width: 100%;
+    min-height: 205px;
+    margin:auto;
+    background-color: rgb(111, 163, 163);
+    border: 2px slod rgb(175, 166, 166);
+    box-shadow: color-mix(in hsl shorter hue, color percentage, color percentage);
+}.head h1{
+   text-align: center;
+   line-height: 205px;
+  
+    
+}
+.wrap1{
+    width: 100%;
+    height: 790px;
+    /*background-color: beige;*/
+    margin-top: 5px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+
+}
+.wrap1 .first-sec{
+    width: 49%;
+    height: 780px;
+    margin-top: 5px;
+    border: 2px solid lightcoral;
+    float: left;
+    
+}
+.first-sec img{
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+.h2 h1{
+    width: 100%;
+    
+    text-align: center;
+    margin-top: 19px;
+    border: 2px solid rgb(215, 201, 201);
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    
+    
+}
+.para{
+    width: 100%;
+    height:auto;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid rgb(167, 167, 159);
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+.para p{
+    width: ;
+    text-align: center;
+}
+.para2 {
+    width: 100%;
+    height:auto ;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+
+}
+.para3{
+    width: 100%;
+    height:auto ;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+.wrap1 .second-sec{
+    width: 49%;
+    height: 780px;
+    margin-top: 5px;
+    border: 2px solid lightcoral;
+    float: right;
+}
+.second-sec img{
+    width: 100%;
+    height: 390px;
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}.s1 h1{
+    width: 100%;
+    
+    text-align: center;
+    margin-top: 19px;
+    border: 2px solid rgb(215, 201, 201);
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}.s2 p{
+    width: 100%;
+    height:auto;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid rgb(167, 167, 159);
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}

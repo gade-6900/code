@@ -1,10 +1,7 @@
-import java.util.Scanner;
 
 public class ForEachLoop {
     public static void main(String[] args) {
-        String[] array = new String[]{
-            "Ram", "Shyam", "Mohan", "Sohan", "Seeta", "Geeta"
-        };
+        String[] array = new String[]{"Ram", "Shyam", "Mohan", "Sohan", "Seeta", "Geeta"};
 
         printArray(array);
     }

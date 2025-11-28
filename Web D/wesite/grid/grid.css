@@ -1,0 +1,73 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+.container{
+    width: 80%;
+    border: 1px solid lightgrey;
+    min-height: 100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4 1fr);
+    grid-template-rows: 60px 60px 150px 100px 150px 60px;
+    gap: 10px;
+    grid-template-areas:
+     "header header header header"
+      "menu menu menu mneu"
+      "slider slider slider slider"
+      "slider box1 box2 box3"
+      "fotter footer footer footer";
+     
+
+                        
+}
+.header{
+    background-color: #2c39;
+    color: white;
+    grid-area:header;
+}
+.menu{
+    background-color: rgba(185, 129, 69, 0.6);
+    color: white;
+    grid-area: menu;
+}
+.slider{
+    background-color: rgba(231, 63, 6, 0.6);
+    color: white;
+    grid-area: slider;
+}
+.box1{
+     background-color: rgba(231, 63, 6, 0.6);
+     color: white;
+     grid-area: box1;
+}
+.box2{
+
+ background-color: rgba(231, 63, 6, 0.6);
+ color: white;
+ grid-area: box2;
+
+}
+.box3{
+
+ background-color: rgba(231, 63, 6, 0.6);
+ color: white;
+ grid-area: box3;
+
+}
+.content{
+    background-color: rgba(199, 162, 150, 0.6);
+ color: white;
+ grid-area: content;
+}
+.footer{
+    background-color: rgba(206, 93, 55, 0.6);
+ color: white;
+ grid-area: footer;
+ grid-area: footer;
+
+}
+.item{
+    padding: 20px;
+}

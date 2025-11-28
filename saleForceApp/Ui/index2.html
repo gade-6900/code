@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BATCAVE — The Batman Experience</title>
+  <style>
+    :root{
+      --bg:#030304;
+      --panel:#0b0b0f;
+      --accent:#ffd700; /* gold */
+      --neon:#00e6ff;
+      --muted:#9aa0a6;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.02), transparent 10%),
+                  radial-gradient(ellipse at 80% 80%, rgba(0,230,255,0.01), transparent 10%),
+                  var(--bg);
+      color:#e6eef7;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* top hero */
+    .hero{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns: 1fr 470px;
+      gap:40px;
+      align-items:center;
+      padding:48px;
+      position:relative;
+    }
+
+    /* particle canvas sits behind everything */
+    canvas#particles{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.9}
+
+    .hero-inner{z-index:5;padding:24px}
+    h1{font-size:44px;margin:0 0 12px;letter-spacing:2px}
+    p.lead{color:var(--muted);max-width:60ch;margin:0 0 20px}
+
+    /* Bat emblem neon */
+    .bat-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;padding:28px;backdrop-filter: blur(6px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .bat-sigil{width:320px;height:180px;display:block}
+
+    /* neon glow effect */
+    .neon{
+      color:var(--accent);
+      text-shadow: 0 0 10px rgba(255,215,0,0.25), 0 0 30px rgba(255,215,0,0.12);
+    }
+
+    .cta-row{display:flex;gap:16px}
+    .btn{
+      background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+      color:var(--neon);border:1px solid rgba(0,230,255,0.12);padding:12px 18px;border-radius:12px;
+      cursor:pointer;font-weight:600;backdrop-filter: blur(4px);
+      display:inline-flex;gap:10px;align-items:center;transition:all .2s ease;
+    }
+    .btn:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,230,255,0.06)}
+    .btn.secondary{color:var(--muted);border-color:rgba(255,255,255,0.04)}
+
+    /* glass panels */
+    .panels{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:28px}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 8px 24px rgba(0,0,0,0.6)}
+
+    /* right column - rotating bat device */
+    .device-wrap{z-index:5;display:flex;align-items:center;justify-content:center;height:70vh}
+    .device{
+      width:360px;height:520px;border-radius:26px;background:linear-gradient(180deg,#07070b, #0b0b11);padding:20px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 6px 18px rgba(0,0,0,0.5);
+      display:flex;flex-direction:column;align-items:center;gap:12px
+    }
+    .screen{flex:1;width:100%;background:linear-gradient(180deg,#06070a,#0b0b0f);border-radius:14px;display:grid;place-items:center;position:relative}
+    .screen .bat-svg{width:220px;opacity:.95;filter:drop-shadow(0 10px 32px rgba(0,0,0,0.7));}
+
+    /* rotating ring */
+    .ring{position:absolute;inset:auto;left:50%;transform:translateX(-50%);bottom:-40px;width:420px;height:420px;border-radius:50%;pointer-events:none;opacity:0.12;background:conic-gradient(from 120deg, rgba(255,215,0,0.06), transparent 25%)}
+
+    /* pulsing sonar */
+    .pulse{position:absolute;inset:10%;border-radius:50%;animation:pulse 2.8s infinite ease-out;opacity:.4}
+    @keyframes pulse{0%{transform:scale(.6);opacity:0.7}100%{transform:scale(1.9);opacity:0}}
+
+    /* footer */
+    footer{padding:26px 48px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+
+    /* small responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;gap:18px;padding:22px}
+      .device-wrap{height:420px}
+    }
+
+    /* little flair */
+    .sparkle{position:relative}
+    .sparkle:after{content:"";position:absolute;right:-6px;top:-6px;width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,var(--neon),var(--accent));box-shadow:0 0 18px rgba(0,230,255,0.5),0 0 34px rgba(255,215,0,0.12)}
+
+    /* cool marquee
+    */
+    .ticker{margin-top:8px;padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);display:inline-block}
+    .marquee{overflow:hidden;white-space:nowrap}
+    .marquee span{display:inline-block;padding-right:32px;animation:marq 12s linear infinite}
+    @keyframes marq{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+    /* small cards */
+    .feature{display:flex;gap:12px;align-items:center}
+    .icon{width:52px;height:52px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:grid;place-items:center;border:1px solid rgba(255,255,255,0.03)}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8));display:grid;place-items:center;z-index:60}
+    .modal{background:linear-gradient(180deg,#0b0b0f,#08080a);padding:24px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);max-width:720px;width:92%}
+    .close{background:none;border:0;color:var(--muted);font-weight:700;cursor:pointer}
+
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  <main class="hero">
+    <div class="hero-inner">
+      <div class="bat-card">
+        <!-- inline SVG bat emblem -->
+        <svg class="bat-sigil" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ffd700" stop-opacity="1" /><stop offset="1" stop-color="#ff9d00" stop-opacity="0.9"/></linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <rect width="100%" height="100%" rx="18" fill="transparent"/>
+          <g transform="translate(0,20) scale(0.9)" filter="url(#glow)">
+            <path d="M400 40c-40 0-72 36-92 64-24-4-48-4-78 10-22 12-28 30-28 48-14 0-36-2-56-2 8 22 28 58 60 74-8 12-26 16-44 20 20 18 56 32 108 32-6 18-10 30-10 50 6-4 14-8 24-12 10 10 30 26 54 42 18-10 38-22 56-32 26 14 46 28 62 42 18-12 36-28 54-40 10 6 18 12 28 16-2-20-8-36-16-52 60 0 108-14 138-38-18-6-34-12-44-20 36-18 56-50 64-78-22 0-38 2-52 2-4-18-8-36-26-50-32-18-70-16-110-12-18-26-46-44-82-44z" fill="url(#g1)"/>
+          </g>
+        </svg>
+
+        <h1 class="neon">BATCAVE — Welcome, Guardian</h1>
+        <p class="lead">An atmospheric tribute site to the Dark Knight — neon lighting, reactive particles, and UI flourishes. Use the controls to explore the Bat-console and summon the Bat-signal.</p>
+
+        <div class="cta-row">
+          <button class="btn" id="sigButton">Summon Bat-Signal</button>
+          <button class="btn secondary" id="consoleButton">Open Console</button>
+        </div>
+
+        <div class="panels">
+          <div class="panel">
+            <div class="feature"><div class="icon">⚙️</div><div><strong>Gadgets</strong><div style="color:var(--muted);font-size:13px">Batarangs, Grapples & more</div></div></div>
+          </div>
+          <div class="panel">
+            <div class="feature"><div class="icon">🛰️</div><div><strong>Surveillance</strong><div style="color:var(--muted);font-size:13px">Real-time Gotham grid</div></div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
+          <div class="ticker"><div class="marquee"><span>ALERT: Flight patterns detected • Batarang stock: READY • Night: 83% charged</span></div></div>
+          <div style="margin-left:auto;color:var(--muted);font-size:13px">Mode: <strong style="color:var(--accent)">Stealth</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="device-wrap">
+      <div class="device">
+        <div class="screen" id="screen">
+          <div class="pulse" style="background:radial-gradient(circle, rgba(255,215,0,0.08), transparent 40%);"></div>
+          <!-- big centered bat -->
+          <svg class="bat-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="f2"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g transform="translate(0,20) scale(0.8)" filter="url(#f2)">
+              <path d="M300 40c-30 0-54 26-68 46-18-4-36-4-58 8-18 10-24 26-24 40-12 0-30-2-46-2 6 18 24 48 52 62-6 10-18 14-30 18 12 12 32 20 64 20-4 12-8 20-8 34 6-2 12-6 20-8 8 8 24 20 44 34 14-8 30-18 44-26 20 12 36 24 48 36 12-8 24-18 36-26 8 6 14 10 22 12-2-12-6-22-12-32 44 0 80-10 102-26-12-4-24-8-32-12 24-12 36-30 42-46-12 0-22 2-30 2-2-10-6-20-18-28-20-12-44-12-68-8-12-18-30-32-54-32z" fill="url(#g1)"/>
+            </g>
+          </svg>
+          <div class="ring"></div>
+        </div>
+        <div style="display:flex;gap:8px;width:100%;justify-content:space-between;align-items:center;padding-top:6px">
+          <div style="display:flex;gap:8px;align-items:center"><div style="width:10px;height:10px;border-radius:50%;background:limegreen;box-shadow:0 0 10px limegreen"></div><div style="font-size:12px;color:var(--muted)">Power: 93%</div></div>
+          <div style="font-size:12px;color:var(--muted)">Network: <strong style="color:var(--neon)">GothamNet</strong></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div>© BATCAVE — Built with pure CSS & JS</div>
+    <div style="display:flex;gap:12px;align-items:center"><button class="btn secondary" id="toggleStars">Toggle Stars</button><button class="btn" id="audioBtn">🔊 Theme</button></div>
+  </footer>
+
+  <!-- modal (hidden by default) -->
+  <div id="modal" class="modal-backdrop" style="display:none">
+    <div class="modal">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3>Bat-Console</h3><button class="close" id="closeModal">✕</button></div>
+      <p style="color:var(--muted)">Access diagnostic tools, launch drones, and inspect Gotham heatmaps. This console is a demo UI; extend it as you like.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+        <div class="panel">Drone Bay<br><small style="color:var(--muted)">Status: Ready</small></div>
+        <div class="panel">Thermal<br><small style="color:var(--muted)">No hotspots</small></div>
+        <div class="panel">Forensics<br><small style="color:var(--muted)">Indexed</small></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Canvas particles
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let starsOn = true;
+    function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+    addEventListener('resize',resize);resize();
+
+    const particles=[];
+    for(let i=0;i<120;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.8+0.3,vx:(Math.random()-0.5)*0.15,vy:(Math.random()-0.5)*0.15,alpha:Math.random()*0.9+0.1})}
+    function tick(){ctx.clearRect(0,0,canvas.width,canvas.height);
+      if(starsOn){
+        for(const p of particles){p.x+=p.vx;p.y+=p.vy; if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0; if(p.y<0)p.y=canvas.height; if(p.y>canvas.height)p.y=0; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,255,255,${p.alpha})`; ctx.shadowBlur=6; ctx.shadowColor='rgba(0,230,255,0.12)'; ctx.fill();}
+      }
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    // Bat-signal animation
+    const sigButton = document.getElementById('sigButton');
+    sigButton.addEventListener('click',()=>{
+      const overlay=document.createElement('div');overlay.style.position='fixed';overlay.style.inset=0;overlay.style.zIndex=58;overlay.style.background='radial-gradient(circle at 30% 20%, rgba(255,240,180,0.12), transparent 20%), rgba(0,0,0,0.6)';
+      overlay.style.display='grid';overlay.style.placeItems='center';
+      const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 800 450');svg.setAttribute('width','60%');svg.style.maxWidth='900px';
+      svg.innerHTML=`<defs><radialGradient id='b1'><stop offset='0' stop-color='#ffd700' stop-opacity='1'/><stop offset='1' stop-color='#ff9d00' stop-opacity='0.1'/></radialGradient></defs><rect width='100%' height='100%' fill='url(#b1)'></rect>`;
+      overlay.appendChild(svg);document.body.appendChild(overlay);
+      overlay.addEventListener('click',()=>{overlay.remove()});
+    });
+
+    // Modal
+    const modal = document.getElementById('modal');
+    document.getElementById('consoleButton').addEventListener('click',()=>{modal.style.display='grid'});
+    document.getElementById('closeModal').addEventListener('click',()=>{modal.style.display='none'});
+    modal.addEventListener('click',(e)=>{if(e.target===modal) modal.style.display='none'});
+
+    // Toggle particles
+    document.getElementById('toggleStars').addEventListener('click',()=>{starsOn=!starsOn; document.getElementById('toggleStars').textContent = starsOn? 'Toggle Stars' : 'Stars OFF';});
+
+    // Simple theme audio (beep-ish) using WebAudio
+    let audioOn=false;let ctxAudio=null;document.getElementById('audioBtn').addEventListener('click',async()=>{
+      if(!ctxAudio){ctxAudio=new AudioContext();}
+      if(!audioOn){
+        // play a short cinematic chord
+        const o1=ctxAudio.createOscillator();const o2=ctxAudio.createOscillator();const g=ctxAudio.createGain();o1.type='sawtooth';o2.type='sine';o1.frequency.value=110; o2.frequency.value=165; g.gain.value=0.0012; o1.connect(g); o2.connect(g); g.connect(ctxAudio.destination); o1.start(); o2.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctxAudio.currentTime+2.2);
+        audioOn=true; document.getElementById('audioBtn').textContent='🔈 Playing'; setTimeout(()=>{document.getElementById('audioBtn').textContent='🔊 Theme'; audioOn=false},2200);
+      }
+    });
+
+    // small interactive tilt on device
+    const screen = document.getElementById('screen');
+    screen.addEventListener('mousemove',(e)=>{
+      const r=screen.getBoundingClientRect();const dx=(e.clientX - (r.left + r.width/2))/r.width*8;const dy=(e.clientY - (r.top + r.height/2))/r.height*8;screen.style.transform=`perspective(800px) rotateX(${ -dy }deg) rotateY(${ dx }deg)`;
+    });
+    screen.addEventListener('mouseleave',()=>{screen.style.transform='perspective(800px) rotateX(0) rotateY(0)';});
+
+    // easter: press 'b' to toggle a secret mode
+    let secret=false;window.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='b'){secret=!secret; document.body.style.background = secret? 'linear-gradient(180deg,#000814,#020617)' : ''}});
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Nested HTML Table </title>
+</head>
+    <style>
+        table{
+            border: 5px solid#aaa;
+            margin: 20px;
+            
+        }
+        th,td{
+            border: 2px solid#666;
+            padding: 10px;
+            text-align: center;
+        }
+        .outer-table{
+            box-shadow: 5px 5px 5px#1f1818;
+        }
+        .nested-tabl:{
+            box-shadow: 5px 5px 5px#342727;
+            
+        }
+    </style>
+<body>
+    <center>
+     <table class="outer-table">
+        <tr>
+            <th colspan="2">HTML Table</th>
+        </tr>
+        <tr>
+            <td>Cell 1</td>
+            <td>
+                Cell 2
+                <br><br>
+                <table class="nested-table">
+                    <tr>
+                        <th colspan="2">Nested HTML Table</th>
+                    </tr>
+                    <tr>
+                        <td>Cell 2.1</td>
+                        <td>Cell 2.2</td>
+                    </tr>
+                    <tr>
+                        <td>Cell 2.3</td>
+                        <td>Cell 2.4</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>

@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+}
+.container{
+    width: 80%;
+    height: auto;
+    margin: auto;
+    border: 1px solid rgb(201, 56, 56);
+}
+.parent{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    
+}
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.logo {
+  width: 35%;
+  height: 50px;
+  background-color: lightgrey;
+  float: left;
+  line-height: 50px;
+}
+
+.logo img{
+    width: 43px%;
+    height:50px;
+    object-fit: cover;
+     
+}
+.nav{
+    width:65%;
+    height: 50px;
+    background-color: lightgrey;
+    float: right;
+    line-height: 50px;
+    
+}
+.nav ul{
+  list-style: none;
+    display: flex;
+    gap: 25px;
+    float: right;
+    margin-right: 5px;
+   
+ 
+}
+.nav ul li a{
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s;
+    float: left;
+    color: rgb(9, 9, 9);
+    border-radius: 10px;
+}
+.nav  a:hover {
+    color: #e23744; 
+   
+
+}
+.main-box{
+    width: 100%;
+    height: 215px;
+    margin-top: 10px;
+    background-color: lightgrey;
+    border: 1px solid red;
+   
+   
+}
+.box{
+    width: 31%;
+    height: 200px;
+    float: left;
+    margin: 1%;
+    border-radius: 10px;
+}
+box:first-child{
+    margin: 0;
+}
+.box:last-child{
+    margin-right: 19px;
+}
+.box:nth-child{
+    margin-left: 10px;
+}
+.box img{
+    width: 100%;
+    height: 200px;
+}
+.chat{
+    width: 100%;
+    height: 250px;
+    border: 1px solid lightgrey;
+    background-color: lightgrey;
+    
+}
+.chat1{
+    width: 30%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: lightpink;
+    text-align: center;
+    margin-left: 35%;
+    
+}
